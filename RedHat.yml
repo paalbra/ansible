@@ -1,0 +1,83 @@
+---
+
+    - name: Install rpmfusion free
+      dnf:
+        name: https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
+        state: present
+      become: yes
+
+    - name: Install rpmfusion nonfree
+      dnf:
+        name: https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
+        state: present
+      become: yes
+
+    - name: Import Microsoft RPM GPG key
+      rpm_key:
+        key: https://packages.microsoft.com/keys/microsoft.asc
+      become: yes
+
+    - name: Copy Microsoft RPM repo
+      copy:
+          src: files/microsoft-prod.repo
+          dest: /etc/yum.repos.d/microsoft-prod.repo
+      become: yes
+
+    - name: Copy Microsoft VSCode RPM repo
+      copy:
+          src: files/vscode.repo
+          dest: /etc/yum.repos.d/vscode.repo
+      become: yes
+
+    - name: Install common packages
+      package:
+        name:
+          - audacity
+          - bsd-games
+          - code
+          - gimp
+          - git
+          - git-review
+          - gnome-tweaks
+          - ffmpeg
+          - htop
+          - jq
+          - kpcli
+          - pandoc
+          - pass
+          - policycoreutils-sandbox
+          - powershell
+          - pwgen
+          - python3-docutils
+          - python3-psutil
+          - redhat-lsb-core
+          - remmina-plugins-rdp
+          - rpm-build
+          - rpmdevtools
+          - rpmlint
+          - snapd
+          - strace
+          - tmux
+          - vim-enhanced
+          - vlc
+        state: present
+      become: yes
+
+    - name: Install common snap packages
+      snap:
+        name:
+          - spotify
+        state: present
+      become: yes
+
+    - name: Remove the massive english hunspell package
+      package:
+        name: hunspell-en
+        state: absent
+      become: yes
+
+    - name: Install US english hunspell package
+      package:
+        name: hunspell-en-US
+        state: present
+      become: yes
