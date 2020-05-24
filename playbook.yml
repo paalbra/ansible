@@ -8,10 +8,6 @@
       package_facts:
         manager: auto
     
-    - name: Configure Gnome
-      when: "'gnome-shell' in ansible_facts.packages"
-      include_tasks: gnome.yml
-
     - name: RedHat specific tasks
       when: ansible_os_family == "RedHat"
       include_tasks: RedHat.yml

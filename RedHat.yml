@@ -23,22 +23,12 @@
           dest: /etc/yum.repos.d/microsoft-prod.repo
       become: yes
 
-    - name: Copy Microsoft VSCode RPM repo
-      copy:
-          src: files/vscode.repo
-          dest: /etc/yum.repos.d/vscode.repo
-      become: yes
-
     - name: Install common packages
       package:
         name:
-          - audacity
           - bsd-games
-          - code
-          - gimp
           - git
           - git-review
-          - gnome-tweaks
           - ffmpeg
           - htop
           - jq
@@ -51,22 +41,12 @@
           - python3-docutils
           - python3-psutil
           - redhat-lsb-core
-          - remmina-plugins-rdp
           - rpm-build
           - rpmdevtools
           - rpmlint
-          - snapd
           - strace
           - tmux
           - vim-enhanced
-          - vlc
-        state: present
-      become: yes
-
-    - name: Install common snap packages
-      snap:
-        name:
-          - spotify
         state: present
       become: yes
 
@@ -81,3 +61,7 @@
         name: hunspell-en-US
         state: present
       become: yes
+
+    - name: Include RedHat desktop tasks
+      when: is_desktop
+      include_tasks: RedHat-desktop.yml
