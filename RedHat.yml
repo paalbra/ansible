@@ -1,17 +1,5 @@
 ---
 
-    - name: Install rpmfusion free
-      dnf:
-        name: https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
-        state: present
-      become: yes
-
-    - name: Install rpmfusion nonfree
-      dnf:
-        name: https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
-        state: present
-      become: yes
-
     - name: Import Microsoft RPM GPG key
       rpm_key:
         key: https://packages.microsoft.com/keys/microsoft.asc
@@ -23,13 +11,16 @@
           dest: /etc/yum.repos.d/microsoft-prod.repo
       become: yes
 
+    - name: Include rpmfusion tasks
+      when: rpm_fusion
+      include_tasks: RedHat-rpmfusion.yml
+
     - name: Install common packages
       package:
         name:
           - bsd-games
           - git
           - git-review
-          - ffmpeg
           - htop
           - jq
           - kpcli

@@ -15,9 +15,14 @@
           - gnome-tweaks
           - remmina-plugins-rdp
           - snapd
-          - vlc
         state: present
       become: yes
+
+    - name: Install rpmfusion desktop packages
+      when: rpm_fusion
+      package:
+        name:
+          - vlc
 
     - name: Install desktop snap packages
       snap:
