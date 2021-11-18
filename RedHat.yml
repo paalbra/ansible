@@ -23,7 +23,6 @@
           - git-review
           - htop
           - jq
-          - kpcli
           - pandoc
           - pass
           - policycoreutils-sandbox

@@ -10,7 +10,6 @@
           - ffmpeg
           - htop
           - jq
-          - kpcli
           - lsb-release
           - pandoc
           - pass
