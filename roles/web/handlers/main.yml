@@ -1,0 +1,9 @@
+---
+
+- name: nginx_reload
+  ansible.builtin.command: systemctl reload nginx
+  become: true
+
+- name: nginx_restart
+  ansible.builtin.command: systemctl restart nginx
+  become: true

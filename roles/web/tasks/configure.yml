@@ -1,0 +1,66 @@
+---
+
+- name: Set SELinux httpd_can_network_connect
+  ansible.builtin.seboolean:
+    name: httpd_can_network_connect
+    state: true
+    persistent: true
+  become: true
+
+- name: Copy nginx config
+  ansible.builtin.copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+  become: true
+  notify:
+    - nginx_reload
+
+- name: Copy default server nginx config
+  ansible.builtin.copy:
+    src: default_server.conf
+    dest: /etc/nginx/conf.d/default_server.conf
+  become: true
+  notify:
+    - nginx_reload
+
+- name: Copy global nginx config
+  ansible.builtin.copy:
+    src: global.conf
+    dest: /etc/nginx/default.d/global.conf
+  become: true
+  notify:
+    - nginx_reload
+
+- name: Copy acme-challenge nginx config
+  ansible.builtin.copy:
+    src: acme-challenge.conf
+    dest: /etc/nginx/default.d/acme-challenge.conf
+  become: true
+  notify:
+    - nginx_reload
+
+- name: Create acme-challenge directory
+  ansible.builtin.file:
+    path: /var/www/global/acme-challenge/.well-known/acme-challenge
+    state: directory
+  become: true
+
+- name: Create web server directories
+  ansible.builtin.file:
+    path: "/var/www/{{ item.name }}/www"
+    state: directory
+  loop: "{{ web_servers }}"
+  become: true
+
+- name: Configure nginx server config
+  ansible.builtin.template:
+    src: server.j2.conf
+    dest: "/etc/nginx/conf.d/{{ item.name }}.conf"
+  loop: "{{ web_servers }}"
+  become: true
+  notify:
+    - nginx_reload
+
+- name: Include certbot configure tasks
+  when: install_certbot
+  ansible.builtin.include_tasks: configure-certbot.yml
