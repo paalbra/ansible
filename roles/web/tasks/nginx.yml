@@ -1,5 +1,31 @@
 ---
 
+- name: Install nginx
+  ansible.builtin.dnf:
+    name: nginx
+    state: present
+  become: true
+
+- name: Install php
+  ansible.builtin.dnf:
+    name: php
+    state: present
+  become: true
+
+- name: Start and enable nginx
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+    enabled: true
+  become: true
+
+- name: Start and enable php-fpm
+  ansible.builtin.systemd:
+    name: php-fpm
+    state: started
+    enabled: true
+  become: true
+
 - name: Set SELinux httpd_can_network_connect
   ansible.builtin.seboolean:
     name: httpd_can_network_connect
@@ -60,7 +86,3 @@
   become: true
   notify:
     - nginx_reload
-
-- name: Include certbot configure tasks
-  when: install_certbot
-  ansible.builtin.include_tasks: configure-certbot.yml

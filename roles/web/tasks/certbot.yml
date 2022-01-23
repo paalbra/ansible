@@ -1,5 +1,17 @@
 ---
 
+- name: Install certbot
+  ansible.builtin.dnf:
+    name: certbot
+    state: present
+  become: true
+
+- name: Enable certbot-renew timer
+  ansible.builtin.systemd:
+    name: certbot-renew.timer
+    enabled: true
+  become: true
+
 - name: Configure certbot deploy hook to reload nginx
   ansible.builtin.lineinfile:
     path: /etc/sysconfig/certbot

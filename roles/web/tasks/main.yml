@@ -1,4 +1,6 @@
 ---
 
-- import_tasks: install.yml
-- import_tasks: configure.yml
+- import_tasks: nginx.yml
+- name: Include certbot task
+  when: install_certbot
+  ansible.builtin.include_tasks: certbot.yml
