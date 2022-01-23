@@ -8,7 +8,9 @@
 
 - name: Install influxdb2
   ansible.builtin.dnf:
-    name: influxdb2
+    name:
+      - influxdb2
+      - influxdb2-cli
     state: present
   become: true
 
