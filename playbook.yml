@@ -3,15 +3,5 @@
 - name: Computer init
   hosts: 127.0.0.1
   connection: local
-  tasks:
-    - name: Gather the package facts
-      package_facts:
-        manager: auto
-    
-    - name: RedHat specific tasks
-      when: ansible_os_family == "RedHat"
-      include_tasks: RedHat.yml
-
-    - name: Debian specific tasks
-      when: ansible_os_family == "Debian"
-      include_tasks: Debian.yml
+  roles:
+    - common

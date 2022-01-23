@@ -1,0 +1,9 @@
+---
+
+- name: RedHat specific tasks
+  when: ansible_os_family == "RedHat"
+  include_tasks: RedHat.yml
+
+- name: Debian specific tasks
+  when: ansible_os_family == "Debian"
+  include_tasks: Debian.yml
