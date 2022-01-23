@@ -1,0 +1,11 @@
+[influxdb]
+{% if ansible_facts["distribution"] == "RedHat" %}
+name = InfluxDB Repository - RHEL $releasever
+baseurl = https://repos.influxdata.com/rhel/$releasever/$basearch/stable
+{% else %}
+name = InfluxDB Repository - RHEL 8
+baseurl = https://repos.influxdata.com/rhel/8/$basearch/stable
+{% endif %}
+enabled = 1
+gpgcheck = 1
+gpgkey = https://repos.influxdata.com/influxdb.key
