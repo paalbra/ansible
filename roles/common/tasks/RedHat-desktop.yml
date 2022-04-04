@@ -23,6 +23,7 @@
       package:
         name:
           - vlc
+      become: yes
 
     - name: Install desktop snap packages
       snap:
