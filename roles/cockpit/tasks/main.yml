@@ -1,0 +1,37 @@
+---
+
+- name: Install cockpit
+  ansible.builtin.dnf:
+    name:
+      - cockpit
+    state: present
+  become: true
+
+- name: Create sockpit.socket.d directory
+  ansible.builtin.file:
+    path: /etc/systemd/system/cockpit.socket.d
+    state: directory
+  become: true
+
+- name: Copy cockpit.socket config override
+  ansible.builtin.copy:
+    src: override.conf
+    dest: /etc/systemd/system/cockpit.socket.d/override.conf
+  become: true
+  notify:
+    - cockpit_restart
+
+- name: Copy cockpit config
+  ansible.builtin.copy:
+    src: cockpit.conf
+    dest: /etc/cockpit/cockpit.conf
+  become: true
+  notify:
+    - cockpit_restart
+
+- name: Start and enable cockpit
+  ansible.builtin.systemd:
+    name: cockpit.socket
+    state: started
+    enabled: true
+  become: true
