@@ -22,6 +22,7 @@
           - git
           - git-review
           - htop
+          - ImageMagick
           - jq
           - pandoc
           - pass
