@@ -4,7 +4,7 @@
   ansible.builtin.copy:
       src: files/vscode.repo
       dest: /etc/yum.repos.d/vscode.repo
-  become: yes
+  become: true
 
 - name: Install desktop packages
   ansible.builtin.dnf:
@@ -17,20 +17,20 @@
       - remmina-plugins-rdp
       - snapd
     state: present
-  become: yes
+  become: true
 
 - name: Install rpmfusion desktop packages
   when: rpm_fusion
   ansible.builtin.dnf:
     name: vlc
     state: present
-  become: yes
+  become: true
 
 - name: Install desktop snap packages
   community.general.snap:
     name: spotify
     state: present
-  become: yes
+  become: true
 
 - name: Configure Gnome
   when: "'gnome-shell' in ansible_facts.packages"

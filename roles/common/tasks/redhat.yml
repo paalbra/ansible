@@ -3,13 +3,13 @@
 - name: Import Microsoft RPM GPG key
   ansible.builtin.rpm_key:
     key: https://packages.microsoft.com/keys/microsoft.asc
-  become: yes
+  become: true
 
 - name: Copy Microsoft RPM repo
   ansible.builtin.copy:
       src: files/microsoft-prod.repo
       dest: /etc/yum.repos.d/microsoft-prod.repo
-  become: yes
+  become: true
 
 - name: Include rpmfusion tasks
   when: rpm_fusion
@@ -39,19 +39,19 @@
       - tmux
       - vim-enhanced
     state: present
-  become: yes
+  become: true
 
 - name: Remove the massive english hunspell package
   ansible.builtin.dnf:
     name: hunspell-en
     state: absent
-  become: yes
+  become: true
 
 - name: Install US english hunspell package
   ansible.builtin.dnf:
     name: hunspell-en-US
     state: present
-  become: yes
+  become: true
 
 - name: Include DNF Automatic tasks
   when: automatic_updates

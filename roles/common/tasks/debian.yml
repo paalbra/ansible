@@ -2,7 +2,7 @@
 
 - name: Install common packages
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
     name:
       - bsdgames
       - git
@@ -21,7 +21,7 @@
       - tmux
       - vim
     state: present
-  become: yes
+  become: true
 
 - name: Include Debian desktop tasks
   when: is_desktop
