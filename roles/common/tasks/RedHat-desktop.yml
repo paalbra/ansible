@@ -1,38 +1,38 @@
 ---
 
-    - name: Copy Microsoft VSCode RPM repo
-      copy:
-          src: files/vscode.repo
-          dest: /etc/yum.repos.d/vscode.repo
-      become: yes
+- name: Copy Microsoft VSCode RPM repo
+  copy:
+      src: files/vscode.repo
+      dest: /etc/yum.repos.d/vscode.repo
+  become: yes
 
-    - name: Install desktop packages
-      package:
-        name:
-          - audacity
-          - code
-          - gimp
-          - gnome-extensions-app
-          - gnome-tweaks
-          - remmina-plugins-rdp
-          - snapd
-        state: present
-      become: yes
+- name: Install desktop packages
+  package:
+    name:
+      - audacity
+      - code
+      - gimp
+      - gnome-extensions-app
+      - gnome-tweaks
+      - remmina-plugins-rdp
+      - snapd
+    state: present
+  become: yes
 
-    - name: Install rpmfusion desktop packages
-      when: rpm_fusion
-      package:
-        name:
-          - vlc
-      become: yes
+- name: Install rpmfusion desktop packages
+  when: rpm_fusion
+  package:
+    name:
+      - vlc
+  become: yes
 
-    - name: Install desktop snap packages
-      snap:
-        name:
-          - spotify
-        state: present
-      become: yes
+- name: Install desktop snap packages
+  snap:
+    name:
+      - spotify
+    state: present
+  become: yes
 
-    - name: Configure Gnome
-      when: "'gnome-shell' in ansible_facts.packages"
-      include_tasks: gnome.yml
+- name: Configure Gnome
+  when: "'gnome-shell' in ansible_facts.packages"
+  include_tasks: gnome.yml

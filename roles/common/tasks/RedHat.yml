@@ -1,58 +1,58 @@
 ---
 
-    - name: Import Microsoft RPM GPG key
-      rpm_key:
-        key: https://packages.microsoft.com/keys/microsoft.asc
-      become: yes
+- name: Import Microsoft RPM GPG key
+  rpm_key:
+    key: https://packages.microsoft.com/keys/microsoft.asc
+  become: yes
 
-    - name: Copy Microsoft RPM repo
-      copy:
-          src: files/microsoft-prod.repo
-          dest: /etc/yum.repos.d/microsoft-prod.repo
-      become: yes
+- name: Copy Microsoft RPM repo
+  copy:
+      src: files/microsoft-prod.repo
+      dest: /etc/yum.repos.d/microsoft-prod.repo
+  become: yes
 
-    - name: Include rpmfusion tasks
-      when: rpm_fusion
-      include_tasks: RedHat-rpmfusion.yml
+- name: Include rpmfusion tasks
+  when: rpm_fusion
+  include_tasks: RedHat-rpmfusion.yml
 
-    - name: Install common packages
-      package:
-        name:
-          - bsd-games
-          - git
-          - git-review
-          - htop
-          - ImageMagick
-          - jq
-          - pandoc
-          - pass
-          - policycoreutils-sandbox
-          - powershell
-          - pwgen
-          - python3-docutils
-          - python3-psutil
-          - redhat-lsb-core
-          - rpm-build
-          - rpmdevtools
-          - rpmlint
-          - strace
-          - tmux
-          - vim-enhanced
-        state: present
-      become: yes
+- name: Install common packages
+  package:
+    name:
+      - bsd-games
+      - git
+      - git-review
+      - htop
+      - ImageMagick
+      - jq
+      - pandoc
+      - pass
+      - policycoreutils-sandbox
+      - powershell
+      - pwgen
+      - python3-docutils
+      - python3-psutil
+      - redhat-lsb-core
+      - rpm-build
+      - rpmdevtools
+      - rpmlint
+      - strace
+      - tmux
+      - vim-enhanced
+    state: present
+  become: yes
 
-    - name: Remove the massive english hunspell package
-      package:
-        name: hunspell-en
-        state: absent
-      become: yes
+- name: Remove the massive english hunspell package
+  package:
+    name: hunspell-en
+    state: absent
+  become: yes
 
-    - name: Install US english hunspell package
-      package:
-        name: hunspell-en-US
-        state: present
-      become: yes
+- name: Install US english hunspell package
+  package:
+    name: hunspell-en-US
+    state: present
+  become: yes
 
-    - name: Include RedHat desktop tasks
-      when: is_desktop
-      include_tasks: RedHat-desktop.yml
+- name: Include RedHat desktop tasks
+  when: is_desktop
+  include_tasks: RedHat-desktop.yml

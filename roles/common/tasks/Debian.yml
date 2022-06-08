@@ -1,28 +1,28 @@
 ---
 
-    - name: Install common packages
-      apt:
-        update_cache: yes
-        name:
-          - bsdgames
-          - git
-          - git-review
-          - ffmpeg
-          - htop
-          - jq
-          - lsb-release
-          - pandoc
-          - pass
-          - policycoreutils-sandbox
-          - pwgen
-          - python3-docutils
-          - python3-psutil
-          - strace
-          - tmux
-          - vim
-        state: present
-      become: yes
+- name: Install common packages
+  apt:
+    update_cache: yes
+    name:
+      - bsdgames
+      - git
+      - git-review
+      - ffmpeg
+      - htop
+      - jq
+      - lsb-release
+      - pandoc
+      - pass
+      - policycoreutils-sandbox
+      - pwgen
+      - python3-docutils
+      - python3-psutil
+      - strace
+      - tmux
+      - vim
+    state: present
+  become: yes
 
-    - name: Include Debian desktop tasks
-      when: is_desktop
-      include_tasks: Debian-desktop.yml
+- name: Include Debian desktop tasks
+  when: is_desktop
+  include_tasks: Debian-desktop.yml
