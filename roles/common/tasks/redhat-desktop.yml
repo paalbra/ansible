@@ -1,13 +1,13 @@
 ---
 
 - name: Copy Microsoft VSCode RPM repo
-  copy:
+  ansible.builtin.copy:
       src: files/vscode.repo
       dest: /etc/yum.repos.d/vscode.repo
   become: yes
 
 - name: Install desktop packages
-  package:
+  ansible.builtin.dnf:
     name:
       - audacity
       - code
@@ -21,18 +21,17 @@
 
 - name: Install rpmfusion desktop packages
   when: rpm_fusion
-  package:
-    name:
-      - vlc
+  ansible.builtin.dnf:
+    name: vlc
+    state: present
   become: yes
 
 - name: Install desktop snap packages
-  snap:
-    name:
-      - spotify
+  community.general.snap:
+    name: spotify
     state: present
   become: yes
 
 - name: Configure Gnome
   when: "'gnome-shell' in ansible_facts.packages"
-  include_tasks: gnome.yml
+  ansible.builtin.include_tasks: gnome.yml

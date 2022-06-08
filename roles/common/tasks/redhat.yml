@@ -1,22 +1,22 @@
 ---
 
 - name: Import Microsoft RPM GPG key
-  rpm_key:
+  ansible.builtin.rpm_key:
     key: https://packages.microsoft.com/keys/microsoft.asc
   become: yes
 
 - name: Copy Microsoft RPM repo
-  copy:
+  ansible.builtin.copy:
       src: files/microsoft-prod.repo
       dest: /etc/yum.repos.d/microsoft-prod.repo
   become: yes
 
 - name: Include rpmfusion tasks
   when: rpm_fusion
-  include_tasks: redhat-rpmfusion.yml
+  ansible.builtin.include_tasks: redhat-rpmfusion.yml
 
 - name: Install common packages
-  package:
+  ansible.builtin.dnf:
     name:
       - bsd-games
       - git
@@ -42,21 +42,21 @@
   become: yes
 
 - name: Remove the massive english hunspell package
-  package:
+  ansible.builtin.dnf:
     name: hunspell-en
     state: absent
   become: yes
 
 - name: Install US english hunspell package
-  package:
+  ansible.builtin.dnf:
     name: hunspell-en-US
     state: present
   become: yes
 
 - name: Include DNF Automatic tasks
   when: automatic_updates
-  include_tasks: redhat-dnf-automatic.yml
+  ansible.builtin.include_tasks: redhat-dnf-automatic.yml
 
 - name: Include RedHat desktop tasks
   when: is_desktop
-  include_tasks: redhat-desktop.yml
+  ansible.builtin.include_tasks: redhat-desktop.yml

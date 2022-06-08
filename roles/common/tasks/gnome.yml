@@ -1,81 +1,81 @@
 ---
 
 - name: Copy desktop files
-  copy:
+  ansible.builtin.copy:
     src: gnome-desktop-background.png
     dest: "{{ ansible_env.HOME }}/gnome-desktop-background.png"
 
 - name: Configure switch-applications keyboard shortcut
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/wm/keybindings/switch-applications
     value: "['<Super>Tab']"
 
 - name: Configure switch-applications-backward keyboard shortcut
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/wm/keybindings/switch-applications-backward
     value: "['<Shift><Super>Tab']"
 
 - name: Configure switch-windows keyboard shortcut
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/wm/keybindings/switch-windows
     value: "['<Alt>Tab']"
 
 - name: Configure switch-windows-backward keyboard shortcut
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/wm/keybindings/switch-windows-backward
     value: "['<Shift><Alt>Tab']"
 
 - name: Configure desktop picture options
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/background/picture-options
     value: "'wallpaper'"
 
 - name: Configure desktop picture uri
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/background/picture-uri
     value: "'{{ ansible_env.HOME }}/gnome-desktop-background.png'"
 
 - name: Configure desktop screensaver options
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/screensaver/picture-options
     value: "'wallpaper'"
 
 - name: Configure desktop screensaver uri
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/screensaver/picture-uri
     value: "'{{ ansible_env.HOME }}/gnome-desktop-background.png'"
 
 - name: Configure desktop calendar show weekdate
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/calendar/show-weekdate
     value: "true"
 
 - name: Configure desktop interface clock show seconds
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/interface/clock-show-seconds
     value: "true"
 
 - name: Configure desktop interface clock show weekday
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/interface/clock-show-weekday
     value: "true"
 
 - name: Configure desktop wm preferences
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/wm/preferences/button-layout
     value: "'appmenu:minimize,maximize,close'"
 
 - name: Configure touchpad natural scrolling
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/peripherals/touchpad/natural-scroll
     value: "false"
 
 - name: Configure touchpad tap to click
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/peripherals/touchpad/tap-to-click
     value: "true"
 
 - name: Configure touchpad two finger scrolling
-  dconf:
+  community.general.dconf:
     key: /org/gnome/desktop/peripherals/touchpad/two-finger-scrolling-enabled
     value: "true"

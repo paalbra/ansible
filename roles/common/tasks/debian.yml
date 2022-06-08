@@ -1,7 +1,7 @@
 ---
 
 - name: Install common packages
-  apt:
+  ansible.builtin.apt:
     update_cache: yes
     name:
       - bsdgames
@@ -25,4 +25,4 @@
 
 - name: Include Debian desktop tasks
   when: is_desktop
-  include_tasks: debian-desktop.yml
+  ansible.builtin.include_tasks: debian-desktop.yml
