@@ -1,0 +1,27 @@
+---
+
+- name: Install dnf-automatic
+  ansible.builtin.dnf:
+    name: dnf-automatic
+    state: present
+  become: true
+
+- name: Enable dnf-automatic.timer
+  ansible.builtin.systemd:
+    name: dnf-automatic.timer
+    enabled: true
+  become: true
+
+- name: Configure dnf-automatic download updates
+  ansible.builtin.lineinfile:
+    path: /etc/dnf/automatic.conf
+    regexp: '^download_updates ='
+    line: download_updates = yes
+  become: true
+
+- name: Configure dnf-automatic apply updates
+  ansible.builtin.lineinfile:
+    path: /etc/dnf/automatic.conf
+    regexp: '^apply_updates ='
+    line: apply_updates = yes
+  become: true

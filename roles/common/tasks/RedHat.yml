@@ -53,6 +53,10 @@
     state: present
   become: yes
 
+- name: Include DNF Automatic tasks
+  when: automatic_updates
+  include_tasks: RedHat-dnf-automatic.yml
+
 - name: Include RedHat desktop tasks
   when: is_desktop
   include_tasks: RedHat-desktop.yml
