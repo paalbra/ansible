@@ -13,7 +13,7 @@
 
 - name: Include rpmfusion tasks
   when: rpm_fusion
-  include_tasks: RedHat-rpmfusion.yml
+  include_tasks: redhat-rpmfusion.yml
 
 - name: Install common packages
   package:
@@ -55,8 +55,8 @@
 
 - name: Include DNF Automatic tasks
   when: automatic_updates
-  include_tasks: RedHat-dnf-automatic.yml
+  include_tasks: redhat-dnf-automatic.yml
 
 - name: Include RedHat desktop tasks
   when: is_desktop
-  include_tasks: RedHat-desktop.yml
+  include_tasks: redhat-desktop.yml

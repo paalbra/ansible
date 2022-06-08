@@ -25,4 +25,4 @@
 
 - name: Include Debian desktop tasks
   when: is_desktop
-  include_tasks: Debian-desktop.yml
+  include_tasks: debian-desktop.yml
