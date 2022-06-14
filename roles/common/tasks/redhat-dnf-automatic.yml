@@ -10,6 +10,7 @@
   ansible.builtin.systemd:
     name: dnf-automatic.timer
     enabled: true
+    state: started
   become: true
 
 - name: Configure dnf-automatic download updates
