@@ -1,7 +1,7 @@
 ---
 
 - name: Add influxdata repo
-  ansible.builtin.template:
+  ansible.builtin.copy:
     src: influxdb.repo
     dest: "/etc/yum.repos.d/influxdb.repo"
   become: true
