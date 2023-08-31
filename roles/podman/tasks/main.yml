@@ -1,0 +1,44 @@
+---
+
+- name: "Install podman"
+  ansible.builtin.package:
+    name: "podman"
+  become: True
+
+- name: "Configure sysctl max_user_namespaces"
+  ansible.posix.sysctl:
+    name: "user.max_user_namespaces"
+    value: 10000
+    sysctl_file: "/etc/sysctl.d/userns.conf"
+  become: True
+
+- name: "Set container_manage_cgroup seboolean"
+  ansible.posix.seboolean:
+    name: "container_manage_cgroup"
+    state: True
+    persistent: True
+  become: True
+
+- name: "Add '{{ podman_user }}' user"
+  ansible.builtin.user:
+    name: "{{ podman_user }}"
+  become: True
+
+- name: "Check if '{{ podman_user }}' is lingering"
+  ansible.builtin.stat:
+    path: "/var/lib/systemd/linger/{{ podman_user }}"
+  register: "user_lingering"
+  become: True
+
+- name: "Enable '{{ podman_user }}' lingering"
+  ansible.builtin.command: "loginctl enable-linger {{ podman_user }}"
+  when: "not user_lingering.stat.exists"
+  become: True
+
+- name: "Ensure systemd user directory exists"
+  ansible.builtin.file:
+    path: "/home/{{ podman_user }}/.config/systemd/user"
+    state: "directory"
+    owner: "{{ podman_user }}"
+    group: "{{ podman_user }}"
+  become: True
