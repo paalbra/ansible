@@ -1,5 +1,8 @@
 ---
 
+- name: Local user tasks
+  ansible.builtin.include_tasks: users.yml
+
 - name: RedHat specific tasks
   when: ansible_os_family == "RedHat"
   ansible.builtin.include_tasks: redhat.yml

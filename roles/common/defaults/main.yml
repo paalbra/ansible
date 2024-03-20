@@ -1,6 +1,7 @@
 ---
 
 automatic_updates: false
+local_users: []  # List of e.g {"username": "bob", "password": "PASSWORD", public_key": "KEY", "sudo": True}
 is_desktop: false
 is_server: false
 rpm_fusion: false

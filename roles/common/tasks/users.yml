@@ -1,0 +1,50 @@
+---
+
+- name: "Set 'wheel' as admin group"
+  ansible.builtin.set_fact:
+    admin_group: "wheel"
+  when: ansible_os_family == "RedHat"
+
+- name: "Set 'sudo' as admin group"
+  ansible.builtin.set_fact:
+    admin_group: "sudo"
+  when: ansible_os_family == "Debian"
+
+- name: "Create user group"
+  ansible.builtin.group:
+    name: "{{ item.username }}"
+  loop: "{{ local_users }}"
+  loop_control:
+    label: "{{ item.username }}"
+
+- name: "Create user"
+  ansible.builtin.user:
+    name: "{{ item.username }}"
+    password: "{{ item.password }}"
+    update_password: "on_create"
+    group: "{{ item.username }}"
+    append: true
+    groups:
+      - "{{ item.username }}"
+  loop: "{{ local_users }}"
+  loop_control:
+    label: "{{ item.username }}"
+
+- name: "Ensure user is in admin group"
+  when: item.sudo
+  ansible.builtin.user:
+    name: "{{ item.username }}"
+    append: true
+    groups:
+      - "{{ admin_group }}"
+  loop: "{{ local_users }}"
+  loop_control:
+    label: "{{ item.username }} => {{ admin_group }}"
+
+- name: "Add user authorized_key"
+  ansible.builtin.authorized_key:
+    user: "{{ item.username }}"
+    key: "{{ item.public_key }}"
+  loop: "{{ local_users }}"
+  loop_control:
+    label: "{{ item.username }} => {{ item.public_key }}"
