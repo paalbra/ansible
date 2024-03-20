@@ -1,81 +1,81 @@
 ---
 
-- name: Copy desktop files
+- name: "Copy desktop files"
   ansible.builtin.copy:
-    src: gnome-desktop-background.png
+    src: "gnome-desktop-background.png"
     dest: "{{ ansible_env.HOME }}/gnome-desktop-background.png"
 
-- name: Configure switch-applications keyboard shortcut
+- name: "Configure switch-applications keyboard shortcut"
   community.general.dconf:
-    key: /org/gnome/desktop/wm/keybindings/switch-applications
+    key: "/org/gnome/desktop/wm/keybindings/switch-applications"
     value: "['<Super>Tab']"
 
-- name: Configure switch-applications-backward keyboard shortcut
+- name: "Configure switch-applications-backward keyboard shortcut"
   community.general.dconf:
-    key: /org/gnome/desktop/wm/keybindings/switch-applications-backward
+    key: "/org/gnome/desktop/wm/keybindings/switch-applications-backward"
     value: "['<Shift><Super>Tab']"
 
-- name: Configure switch-windows keyboard shortcut
+- name: "Configure switch-windows keyboard shortcut"
   community.general.dconf:
-    key: /org/gnome/desktop/wm/keybindings/switch-windows
+    key: "/org/gnome/desktop/wm/keybindings/switch-windows"
     value: "['<Alt>Tab']"
 
-- name: Configure switch-windows-backward keyboard shortcut
+- name: "Configure switch-windows-backward keyboard shortcut"
   community.general.dconf:
-    key: /org/gnome/desktop/wm/keybindings/switch-windows-backward
+    key: "/org/gnome/desktop/wm/keybindings/switch-windows-backward"
     value: "['<Shift><Alt>Tab']"
 
-- name: Configure desktop picture options
+- name: "Configure desktop picture options"
   community.general.dconf:
-    key: /org/gnome/desktop/background/picture-options
+    key: "/org/gnome/desktop/background/picture-options"
     value: "'wallpaper'"
 
-- name: Configure desktop picture uri
+- name: "Configure desktop picture uri"
   community.general.dconf:
-    key: /org/gnome/desktop/background/picture-uri
+    key: "/org/gnome/desktop/background/picture-uri"
     value: "'{{ ansible_env.HOME }}/gnome-desktop-background.png'"
 
-- name: Configure desktop screensaver options
+- name: "Configure desktop screensaver options"
   community.general.dconf:
-    key: /org/gnome/desktop/screensaver/picture-options
+    key: "/org/gnome/desktop/screensaver/picture-options"
     value: "'wallpaper'"
 
-- name: Configure desktop screensaver uri
+- name: "Configure desktop screensaver uri"
   community.general.dconf:
-    key: /org/gnome/desktop/screensaver/picture-uri
+    key: "/org/gnome/desktop/screensaver/picture-uri"
     value: "'{{ ansible_env.HOME }}/gnome-desktop-background.png'"
 
-- name: Configure desktop calendar show weekdate
+- name: "Configure desktop calendar show weekdate"
   community.general.dconf:
-    key: /org/gnome/desktop/calendar/show-weekdate
+    key: "/org/gnome/desktop/calendar/show-weekdate"
     value: "true"
 
-- name: Configure desktop interface clock show seconds
+- name: "Configure desktop interface clock show seconds"
   community.general.dconf:
-    key: /org/gnome/desktop/interface/clock-show-seconds
+    key: "/org/gnome/desktop/interface/clock-show-seconds"
     value: "true"
 
-- name: Configure desktop interface clock show weekday
+- name: "Configure desktop interface clock show weekday"
   community.general.dconf:
-    key: /org/gnome/desktop/interface/clock-show-weekday
+    key: "/org/gnome/desktop/interface/clock-show-weekday"
     value: "true"
 
-- name: Configure desktop wm preferences
+- name: "Configure desktop wm preferences"
   community.general.dconf:
-    key: /org/gnome/desktop/wm/preferences/button-layout
+    key: "/org/gnome/desktop/wm/preferences/button-layout"
     value: "'appmenu:minimize,maximize,close'"
 
-- name: Configure touchpad natural scrolling
+- name: "Configure touchpad natural scrolling"
   community.general.dconf:
-    key: /org/gnome/desktop/peripherals/touchpad/natural-scroll
+    key: "/org/gnome/desktop/peripherals/touchpad/natural-scroll"
     value: "false"
 
-- name: Configure touchpad tap to click
+- name: "Configure touchpad tap to click"
   community.general.dconf:
-    key: /org/gnome/desktop/peripherals/touchpad/tap-to-click
+    key: "/org/gnome/desktop/peripherals/touchpad/tap-to-click"
     value: "true"
 
-- name: Configure touchpad two finger scrolling
+- name: "Configure touchpad two finger scrolling"
   community.general.dconf:
-    key: /org/gnome/desktop/peripherals/touchpad/two-finger-scrolling-enabled
+    key: "/org/gnome/desktop/peripherals/touchpad/two-finger-scrolling-enabled"
     value: "true"

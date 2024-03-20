@@ -1,5 +1,5 @@
 ---
 
-- name: influxdb_restart
-  ansible.builtin.command: systemctl restart influxdb
+- name: "influxdb_restart"
+  ansible.builtin.command: "systemctl restart influxdb"
   become: true

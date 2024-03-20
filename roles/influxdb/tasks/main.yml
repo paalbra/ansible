@@ -1,58 +1,58 @@
 ---
 
-- name: Add influxdata repo
+- name: "Add influxdata repo"
   ansible.builtin.copy:
-    src: influxdb.repo
+    src: "influxdb.repo"
     dest: "/etc/yum.repos.d/influxdb.repo"
   become: true
 
-- name: Install influxdb2
+- name: "Install influxdb2"
   ansible.builtin.dnf:
     name:
-      - influxdb2
-      - influxdb2-cli
-    state: present
+      - "influxdb2"
+      - "influxdb2-cli"
+    state: "present"
   become: true
 
-- name: Configure influxdb bind address
+- name: "Configure influxdb bind address"
   ansible.builtin.lineinfile:
-    path: /etc/influxdb/config.toml
-    regexp: '^http-bind-address ='
-    line: http-bind-address = "127.0.0.1:8086"
+    path: "/etc/influxdb/config.toml"
+    regexp: "^http-bind-address ="
+    line: "http-bind-address = \"127.0.0.1:8086\""
   become: true
   notify:
-    - influxdb_restart
+    - "influxdb_restart"
 
-- name: Disable influxdb /metrics endpoint
+- name: "Disable influxdb /metrics endpoint"
   ansible.builtin.lineinfile:
-    path: /etc/influxdb/config.toml
-    regexp: '^metrics-disabled ='
-    line: metrics-disabled = true
+    path: "/etc/influxdb/config.toml"
+    regexp: "^metrics-disabled ="
+    line: "metrics-disabled = true"
   become: true
   notify:
-    - influxdb_restart
+    - "influxdb_restart"
 
-- name: Disable influxdb /debug/pprof endpoint
+- name: "Disable influxdb /debug/pprof endpoint"
   ansible.builtin.lineinfile:
-    path: /etc/influxdb/config.toml
-    regexp: '^pprof-disabled ='
-    line: pprof-disabled = true
+    path: "/etc/influxdb/config.toml"
+    regexp: "^pprof-disabled ="
+    line: "pprof-disabled = true"
   become: true
   notify:
-    - influxdb_restart
+    - "influxdb_restart"
 
-- name: Disable influxdb telemetry reporting
+- name: "Disable influxdb telemetry reporting"
   ansible.builtin.lineinfile:
-    path: /etc/influxdb/config.toml
-    regexp: '^reporting-disabled ='
-    line: reporting-disabled = true
+    path: "/etc/influxdb/config.toml"
+    regexp: "^reporting-disabled ="
+    line: "reporting-disabled = true"
   become: true
   notify:
-    - influxdb_restart
+    - "influxdb_restart"
 
-- name: Start and enable influxdb
+- name: "Start and enable influxdb"
   ansible.builtin.systemd:
-    name: influxdb
-    state: started
+    name: "influxdb"
+    state: "started"
     enabled: true
   become: true

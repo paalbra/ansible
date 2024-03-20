@@ -1,12 +1,12 @@
 ---
 
-- name: Local user tasks
-  ansible.builtin.include_tasks: users.yml
+- name: "Local user tasks"
+  ansible.builtin.include_tasks: "users.yml"
 
-- name: RedHat specific tasks
-  when: ansible_os_family == "RedHat"
-  ansible.builtin.include_tasks: redhat.yml
+- name: "RedHat specific tasks"
+  when: "ansible_os_family == 'RedHat'"
+  ansible.builtin.include_tasks: "redhat.yml"
 
-- name: Debian specific tasks
-  when: ansible_os_family == "Debian"
-  ansible.builtin.include_tasks: debian.yml
+- name: "Debian specific tasks"
+  when: "ansible_os_family == 'Debian'"
+  ansible.builtin.include_tasks: "debian.yml"

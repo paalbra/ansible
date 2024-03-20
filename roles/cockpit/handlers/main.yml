@@ -1,5 +1,5 @@
 ---
 
-- name: cockpit_restart
-  ansible.builtin.command: systemctl restart cockpit.socket
+- name: "cockpit_restart"
+  ansible.builtin.command: "systemctl restart cockpit.socket"
   become: true

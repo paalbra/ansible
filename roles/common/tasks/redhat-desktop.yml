@@ -1,37 +1,37 @@
 ---
 
-- name: Copy Microsoft VSCode RPM repo
+- name: "Copy Microsoft VSCode RPM repo"
   ansible.builtin.copy:
-      src: files/vscode.repo
-      dest: /etc/yum.repos.d/vscode.repo
+    src: "files/vscode.repo"
+    dest: "/etc/yum.repos.d/vscode.repo"
   become: true
 
-- name: Install desktop packages
+- name: "Install desktop packages"
   ansible.builtin.dnf:
     name:
-      - audacity
-      - code
-      - gimp
-      - gnome-extensions-app
-      - gnome-tweaks
-      - remmina-plugins-rdp
-      - snapd
-    state: present
+      - "audacity"
+      - "code"
+      - "gimp"
+      - "gnome-extensions-app"
+      - "gnome-tweaks"
+      - "remmina-plugins-rdp"
+      - "snapd"
+    state: "present"
   become: true
 
-- name: Install rpmfusion desktop packages
-  when: rpm_fusion
+- name: "Install rpmfusion desktop packages"
+  when: "rpm_fusion"
   ansible.builtin.dnf:
-    name: vlc
-    state: present
+    name: "vlc"
+    state: "present"
   become: true
 
-- name: Install desktop snap packages
+- name: "Install desktop snap packages"
   community.general.snap:
-    name: spotify
-    state: present
+    name: "spotify"
+    state: "present"
   become: true
 
-- name: Configure Gnome
+- name: "Configure Gnome"
   when: "'gnome-shell' in ansible_facts.packages"
-  ansible.builtin.include_tasks: gnome.yml
+  ansible.builtin.include_tasks: "gnome.yml"

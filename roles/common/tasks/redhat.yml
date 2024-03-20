@@ -1,63 +1,63 @@
 ---
 
-- name: Import Microsoft RPM GPG key
+- name: "Import Microsoft RPM GPG key"
   ansible.builtin.rpm_key:
-    key: https://packages.microsoft.com/keys/microsoft.asc
+    key: "https://packages.microsoft.com/keys/microsoft.asc"
   become: true
 
-- name: Copy Microsoft RPM repo
+- name: "Copy Microsoft RPM repo"
   ansible.builtin.copy:
-      src: files/microsoft-prod.repo
-      dest: /etc/yum.repos.d/microsoft-prod.repo
+    src: "files/microsoft-prod.repo"
+    dest: "/etc/yum.repos.d/microsoft-prod.repo"
   become: true
 
-- name: Include rpmfusion tasks
-  when: rpm_fusion
-  ansible.builtin.include_tasks: redhat-rpmfusion.yml
+- name: "Include rpmfusion tasks"
+  when: "rpm_fusion"
+  ansible.builtin.include_tasks: "redhat-rpmfusion.yml"
 
-- name: Install common packages
+- name: "Install common packages"
   ansible.builtin.dnf:
     name:
-      - bsd-games
-      - git
-      - git-review
-      - htop
-      - ImageMagick
-      - jq
-      - neofetch
-      - pandoc
-      - pass
-      - policycoreutils-sandbox
-      - powershell
-      - pwgen
-      - python3-docutils
-      - python3-psutil
-      - redhat-lsb-core
-      - rpm-build
-      - rpmdevtools
-      - rpmlint
-      - strace
-      - tmux
-      - vim-enhanced
-    state: present
+      - "bsd-games"
+      - "git"
+      - "git-review"
+      - "htop"
+      - "ImageMagick"
+      - "jq"
+      - "neofetch"
+      - "pandoc"
+      - "pass"
+      - "policycoreutils-sandbox"
+      - "powershell"
+      - "pwgen"
+      - "python3-docutils"
+      - "python3-psutil"
+      - "redhat-lsb-core"
+      - "rpm-build"
+      - "rpmdevtools"
+      - "rpmlint"
+      - "strace"
+      - "tmux"
+      - "vim-enhanced"
+    state: "present"
   become: true
 
-- name: Remove the massive english hunspell package
+- name: "Remove the massive english hunspell package"
   ansible.builtin.dnf:
-    name: hunspell-en
-    state: absent
+    name: "hunspell-en"
+    state: "absent"
   become: true
 
-- name: Install US english hunspell package
+- name: "Install US english hunspell package"
   ansible.builtin.dnf:
-    name: hunspell-en-US
-    state: present
+    name: "hunspell-en-US"
+    state: "present"
   become: true
 
-- name: Include DNF Automatic tasks
-  when: automatic_updates
-  ansible.builtin.include_tasks: redhat-dnf-automatic.yml
+- name: "Include DNF Automatic tasks"
+  when: "automatic_updates"
+  ansible.builtin.include_tasks: "redhat-dnf-automatic.yml"
 
-- name: Include RedHat desktop tasks
-  when: is_desktop
-  ansible.builtin.include_tasks: redhat-desktop.yml
+- name: "Include RedHat desktop tasks"
+  when: "is_desktop"
+  ansible.builtin.include_tasks: "redhat-desktop.yml"

@@ -1,19 +1,19 @@
 ---
 
-- name: Install rpmfusion free
+- name: "Install rpmfusion free"
   ansible.builtin.dnf:
-    name: https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
-    state: present
+    name: "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+    state: "present"
   become: true
 
-- name: Install rpmfusion nonfree
+- name: "Install rpmfusion nonfree"
   ansible.builtin.dnf:
-    name: https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
-    state: present
+    name: "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+    state: "present"
   become: true
 
-- name: Install rpmfusion packages
+- name: "Install rpmfusion packages"
   ansible.builtin.dnf:
-    name: ffmpeg
-    state: present
+    name: "ffmpeg"
+    state: "present"
   become: true
