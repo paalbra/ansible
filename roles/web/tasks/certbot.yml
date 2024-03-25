@@ -10,6 +10,7 @@
   ansible.builtin.systemd:
     name: "certbot-renew.timer"
     enabled: true
+    state: "started"
   become: true
 
 - name: "Configure certbot deploy hook to reload nginx"
