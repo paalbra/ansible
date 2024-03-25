@@ -76,6 +76,8 @@
     path: "/var/www/{{ item.name }}/www"
     state: "directory"
   loop: "{{ web_servers }}"
+  loop_control:
+    label: "{{ item.name }}"
   become: true
 
 - name: "Configure nginx server config"
@@ -83,6 +85,8 @@
     src: "server.j2.conf"
     dest: "/etc/nginx/conf.d/{{ item.name }}.conf"
   loop: "{{ web_servers }}"
+  loop_control:
+    label: "{{ item.name }}"
   become: true
   notify:
     - "nginx_reload"
