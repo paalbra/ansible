@@ -7,7 +7,7 @@
   become: true
 
 - name: "Enable certbot-renew timer"
-  ansible.builtin.systemd:
+  ansible.builtin.systemd_service:
     name: "certbot-renew.timer"
     enabled: true
     state: "started"

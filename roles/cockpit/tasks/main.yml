@@ -30,7 +30,7 @@
     - "cockpit_restart"
 
 - name: "Start and enable cockpit"
-  ansible.builtin.systemd:
+  ansible.builtin.systemd_service:
     name: "cockpit.socket"
     state: "started"
     enabled: true

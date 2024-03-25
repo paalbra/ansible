@@ -51,7 +51,7 @@
     - "influxdb_restart"
 
 - name: "Start and enable influxdb"
-  ansible.builtin.systemd:
+  ansible.builtin.systemd_service:
     name: "influxdb"
     state: "started"
     enabled: true
