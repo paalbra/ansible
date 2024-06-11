@@ -1,0 +1,6 @@
+---
+
+wireguard_forward: false
+wireguard_listenport: 51820
+wireguard_peers: []
+wireguard_persistent_keepalive: 25

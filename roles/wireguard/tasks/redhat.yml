@@ -1,0 +1,7 @@
+---
+
+- name: "Install WireGuard"
+  ansible.builtin.dnf:
+    name: "wireguard-tools"
+    state: "present"
+  become: true

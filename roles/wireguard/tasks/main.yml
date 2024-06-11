@@ -1,0 +1,71 @@
+---
+
+- name: "Include RedHat specific tasks"
+  when: "ansible_os_family == 'RedHat'"
+  ansible.builtin.include_tasks: "redhat.yml"
+
+- name: "Create privatekey and publickey"
+  ansible.builtin.shell: "wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/publickey"
+  args:
+    creates: "/etc/wireguard/privatekey"
+  become: true
+
+- name: "Get privatekey"
+  ansible.builtin.command: "cat '/etc/wireguard/privatekey'"
+  register: "wireguard_privatekey_command"
+  become: true
+
+- name: "Set privatekey var"
+  ansible.builtin.set_fact:
+    wireguard_privatekey: "{{ wireguard_privatekey_command.stdout }}"
+
+- name: "Get publickey"
+  ansible.builtin.command: "cat '/etc/wireguard/publickey'"
+  register: "wireguard_publickey_command"
+  become: true
+
+- name: "Set publickey var"
+  ansible.builtin.set_fact:
+    wireguard_publickey: "{{ wireguard_publickey_command.stdout }}"
+
+- name: "Restrict privatekey permissions"
+  ansible.builtin.file:
+    path: "/etc/wireguard/privatekey"
+    mode: "0600"
+  become: true
+
+- name: "Generate WireGuard config file"
+  ansible.builtin.template:
+    src: "wg.conf.j2"
+    dest: "/etc/wireguard/wg0.conf"
+    owner: "root"
+    group: "root"
+    mode: "0600"
+  notify:
+    - "wireguard_restart"
+  become: true
+
+- name: "Restrict WireGuard config file permissions"
+  ansible.builtin.file:
+    path: "/etc/wireguard/wg0.conf"
+    mode: "0600"
+  become: true
+
+- name: "Start and enable WireGuard"
+  ansible.builtin.systemd_service:
+    name: "wg-quick@wg0.service"
+    state: "started"
+    enabled: true
+  become: true
+
+- name: "Allow IP forward in sysctl"
+  when: "wireguard_forward"
+  ansible.posix.sysctl:
+    name: "net.ipv4.ip_forward"
+    value: "1"
+    sysctl_set: true
+    reload: true
+
+- name: "Output publickey"
+  ansible.builtin.debug:
+    var: "wireguard_publickey"
