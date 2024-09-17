@@ -1,7 +1,22 @@
 ---
 
-- ansible.builtin.import_tasks: "nginx.yml"
-
-- name: "Include certbot task"
-  when: "install_certbot"
+- name: "Include certbot tasks"
   ansible.builtin.include_tasks: "certbot.yml"
+
+- name: "Include find missing certificates tasks"
+  ansible.builtin.include_tasks: "find_missing_certificates.yml"
+
+- name: "Include nginx tasks"
+  ansible.builtin.include_tasks: "nginx.yml"
+
+- name: "Retry configuration"
+  when: "missing_certificates"
+  block:
+    - name: "Reinclude find missing certificates tasks"
+      ansible.builtin.include_tasks: "find_missing_certificates.yml"
+
+    - name: "Include initialize certificates tasks"
+      ansible.builtin.include_tasks: "initialize_certificates.yml"
+
+    - name: "Include nginx tasks"
+      ansible.builtin.include_tasks: "nginx.yml"

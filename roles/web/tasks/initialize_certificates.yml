@@ -1,0 +1,16 @@
+---
+
+# TODO: Should probably verify that "letsencrypt_email" is set here
+
+- name: "Create initial letsencrypt config"
+  ansible.builtin.template:
+    src: "letsencrypt.j2.conf"
+    dest: "/tmp/letsencrypt_{{ item }}.conf"
+  loop: "{{ missing_certificates }}"
+  become: true
+
+- name: "Create certificate"
+  ansible.builtin.command:
+    cmd: "certbot certonly --non-interactive --config '/tmp/letsencrypt_{{ item }}.conf'"
+  loop: "{{ missing_certificates }}"
+  become: true

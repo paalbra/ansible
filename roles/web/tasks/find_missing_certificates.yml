@@ -1,0 +1,28 @@
+---
+
+# TODO: Some times certbot might not create live directories like "www.example.com",
+# but rather something like "www.example.com-0001". Don't know why. It might cause issues.
+# The debug tasks could be usefull.
+
+- name: "Find letsencrypt live directories"
+  ansible.builtin.find:
+    paths: "/etc/letsencrypt/live/"
+    file_type: "directory"
+  register: "letsencrypt_directories"
+  become: true
+
+- name: "Get basenames of letsencrypt live directories"
+  ansible.builtin.set_fact:
+    letsencrypt_directories: "{{ letsencrypt_directories.files | map(attribute='path') | map('basename') | list }}"
+
+- name: "Get web server names that doesn't have a certificate"
+  ansible.builtin.set_fact:
+    missing_certificates: "{{ web_servers | map(attribute='name') | difference(letsencrypt_directories) }}"
+
+- name: "Letsencrypt live directories"
+  ansible.builtin.debug:
+    var: "letsencrypt_directories"
+
+- name: "Letsencrypt missing certificates"
+  ansible.builtin.debug:
+    var: "missing_certificates"

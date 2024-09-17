@@ -1,4 +1,5 @@
 ---
 
 install_certbot: true
+letsencrypt_email: ""
 web_servers: []
