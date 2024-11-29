@@ -19,12 +19,12 @@
   ansible.builtin.dnf:
     name:
       - "bsd-games"
+      - "fastfetch"
       - "git"
       - "git-review"
       - "htop"
       - "ImageMagick"
       - "jq"
-      - "neofetch"
       - "pandoc"
       - "pass"
       - "policycoreutils-sandbox"
