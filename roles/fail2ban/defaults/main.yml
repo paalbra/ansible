@@ -1,0 +1,17 @@
+fail2ban_filters:
+  nginx-status: '^<HOST> \S+ \S+ \[.*\] "POST .*" (401|403) \d+ .*$'
+
+fail2ban_jails:
+  sshd:
+    enabled: "true"
+    findtime: "10m"
+    maxretry: "3"
+    bantime: "1h"
+  nginx-status:
+    enabled: "true"
+    findtime: "10m"
+    maxretry: "3"
+    bantime: "1h"
+    port: "http,https"
+    filter: "nginx-status"
+    logpath: "/var/log/nginx/*access.log"

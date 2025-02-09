@@ -1,0 +1,29 @@
+---
+
+- name: "Install fail2ban"
+  ansible.builtin.package:
+    name: "fail2ban"
+    state: "present"
+  become: true
+
+- name: "Configure fail2ban filters"
+  ansible.builtin.template:
+    src: "filter.conf.j2"
+    dest: "/etc/fail2ban/filter.d/{{ item.key }}.conf"
+  with_dict: "{{ fail2ban_filters }}"
+  notify: "fail2ban_restart"
+  become: true
+
+- name: "Configure fail2ban jails"
+  ansible.builtin.template:
+    src: "jail.local.j2"
+    dest: "/etc/fail2ban/jail.local"
+  notify: "fail2ban_restart"
+  become: true
+
+- name: "Start and enable fail2ban"
+  ansible.builtin.service:
+    name: "fail2ban"
+    state: "started"
+    enabled: true
+  become: true
