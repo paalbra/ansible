@@ -3,6 +3,7 @@
 - name: "Install podman"
   ansible.builtin.package:
     name: "podman"
+    name: "podman-compose"
   become: true
 
 - name: "Configure sysctl max_user_namespaces"
