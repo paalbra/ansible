@@ -18,10 +18,8 @@
 - name: "Install common packages"
   ansible.builtin.dnf:
     name:
-      - "bsd-games"
       - "fastfetch"
       - "git"
-      - "git-review"
       - "htop"
       - "ImageMagick"
       - "jq"
@@ -32,7 +30,6 @@
       - "pwgen"
       - "python3-docutils"
       - "python3-psutil"
-      - "redhat-lsb-core"
       - "rpm-build"
       - "rpmdevtools"
       - "rpmlint"
