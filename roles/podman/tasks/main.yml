@@ -43,3 +43,9 @@
     owner: "{{ podman_user }}"
     group: "{{ podman_user }}"
   become: true
+
+- name: "Copy container.conf"
+  ansible.builtin.copy:
+    src: "containers.conf"
+    dest: "/etc/containers/containers.conf"
+  become: true
