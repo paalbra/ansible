@@ -12,20 +12,6 @@
     state: "present"
   become: true
 
-- name: "Start and enable nginx"
-  ansible.builtin.systemd_service:
-    name: "nginx"
-    state: "started"
-    enabled: true
-  become: true
-
-- name: "Start and enable php-fpm"
-  ansible.builtin.systemd_service:
-    name: "php-fpm"
-    state: "started"
-    enabled: true
-  become: true
-
 - name: "Set SELinux httpd_can_network_connect"
   ansible.builtin.seboolean:
     name: "httpd_can_network_connect"
@@ -90,3 +76,17 @@
   become: true
   notify:
     - "nginx_reload"
+
+- name: "Start and enable nginx"
+  ansible.builtin.systemd_service:
+    name: "nginx"
+    state: "started"
+    enabled: true
+  become: true
+
+- name: "Start and enable php-fpm"
+  ansible.builtin.systemd_service:
+    name: "php-fpm"
+    state: "started"
+    enabled: true
+  become: true
