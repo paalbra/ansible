@@ -11,6 +11,11 @@
     dest: "/etc/yum.repos.d/microsoft-prod.repo"
   become: true
 
+- name: "Install EPEL"
+  when: "ansible_distribution in ['Rocky']"
+  ansible.builtin.dnf:
+    name: "epel-release"
+
 - name: "Include rpmfusion tasks"
   when: "rpm_fusion"
   ansible.builtin.include_tasks: "redhat-rpmfusion.yml"

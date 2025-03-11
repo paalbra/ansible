@@ -3,10 +3,5 @@
 - name: "Local user tasks"
   ansible.builtin.include_tasks: "users.yml"
 
-- name: "RedHat specific tasks"
-  when: "ansible_os_family == 'RedHat'"
-  ansible.builtin.include_tasks: "redhat.yml"
-
-- name: "Debian specific tasks"
-  when: "ansible_os_family == 'Debian'"
-  ansible.builtin.include_tasks: "debian.yml"
+- name: "OS specific tasks"
+  ansible.builtin.include_tasks: "os_{{ ansible_os_family }}.yml"
