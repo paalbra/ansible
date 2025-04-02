@@ -12,11 +12,11 @@
 - name: "Retry configuration"
   when: "missing_certificates"
   block:
-    - name: "Reinclude find missing certificates tasks"
-      ansible.builtin.include_tasks: "find_missing_certificates.yml"
-
     - name: "Include initialize certificates tasks"
       ansible.builtin.include_tasks: "initialize_certificates.yml"
 
-    - name: "Include nginx tasks"
+    - name: "Reinclude find missing certificates tasks"
+      ansible.builtin.include_tasks: "find_missing_certificates.yml"
+
+    - name: "Reinclude nginx tasks"
       ansible.builtin.include_tasks: "nginx.yml"
