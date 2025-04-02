@@ -9,6 +9,8 @@
   loop: "{{ missing_certificates }}"
   become: true
 
+# TODO: Newly created certificates should be stored so we know that the just got created
+
 - name: "Create certificate"
   ansible.builtin.command:
     cmd: "certbot certonly --non-interactive --config '/tmp/letsencrypt_{{ item }}.conf'"
