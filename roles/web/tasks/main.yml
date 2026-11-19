@@ -10,7 +10,7 @@
   ansible.builtin.include_tasks: "nginx.yml"
 
 - name: "Retry configuration"
-  when: "missing_certificates"
+  when: "missing_certificates | length > 0"
   block:
     - name: "Include initialize certificates tasks"
       ansible.builtin.include_tasks: "initialize_certificates.yml"
