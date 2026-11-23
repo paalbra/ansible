@@ -31,7 +31,6 @@
       - "pandoc"
       - "pass"
       - "policycoreutils-sandbox"
-      - "powershell"
       - "pwgen"
       - "python3-docutils"
       - "python3-psutil"
